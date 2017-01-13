@@ -51,32 +51,3 @@ module.exports = class extends Generator {
     this.installDependencies({bower: false});
   }
 }
-
-// module.exports = yeoman.generators.Base.extend({
-//   prompting: function () {
-//     const prompts = [
-//       { name: 'botName', message: `What 's the name of your bot?`, default: 'sample' },
-//       { name: 'description', message: 'What will your bot do?', default: 'sample' },
-//       { name: 'language', type: 'list', message: 'What language do you want to use?', choices: ['TypeScript', 'JavaScript'] },
-//       { name: 'license', type: 'list', message: 'What license do you want to use?', choices: ['MIT', 'Apache'] }
-//     ];
-//     return this.prompt(prompts).then((props) => {
-//       this.props = props;
-//       // console.log(props);
-//     });
-//   },
-
-//   writing: function () {
-//     // this.fs.copy(
-//     //   this.templatePath('dummyfile.txt'),
-//     //   this.destinationPath('dummyfile.txt')
-//     // );
-//     // let directoryName = this.props.botName.replace(' ', '-').match(/a-z-/ig).toLowerCase();
-//     const directoryName = this.props.botName.replace(' ', '-').match(/[a-z-]*/ig)[0].toLowerCase();
-//     this.mkdir(directoryName);
-//   },
-
-//   install: function () {
-//     // this.installDependencies();
-//   }
-// });
