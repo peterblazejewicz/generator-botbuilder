@@ -1,36 +1,82 @@
 'use strict';
-var Generator = require('yeoman-generator');
-var chalk = require('chalk');
-var yosay = require('yosay');
+const path = require('path');
+const Generator = require('yeoman-generator');
+// const askName = require('inquirer-npm-name');
+const _ = require('lodash');
+const extend = require('deep-extend');
+const mkdirp = require('mkdirp');
 
-module.exports = Generator.extend({
-  prompting: function () {
-    // Have Yeoman greet the user.
-    this.log(yosay(
-      'Welcome to the polished ' + chalk.red('generator-botbuilder') + ' generator!'
-    ));
-
-    var prompts = [{
-      type: 'confirm',
-      name: 'someAnswer',
-      message: 'Would you like to enable this option?',
-      default: true
-    }];
-
-    return this.prompt(prompts).then(function (props) {
-      // To access props later use this.props.someAnswer;
+module.exports = class extends Generator {
+  prompting() {
+    const prompts = [
+      { name: 'botName', message: `What 's the name of your bot?`, default: 'sample' },
+      { name: 'description', message: 'What will your bot do?', default: 'sample' },
+      { name: 'language', type: 'list', message: 'What language do you want to use?', choices: ['TypeScript', 'JavaScript'] },
+    ];
+    return this.prompt(prompts).then((props) => {
       this.props = props;
-    }.bind(this));
-  },
-
-  writing: function () {
-    this.fs.copy(
-      this.templatePath('dummyfile.txt'),
-      this.destinationPath('dummyfile.txt')
-    );
-  },
-
-  install: function () {
-    this.installDependencies();
+      // console.log(props);
+    });
   }
-});
+  writing() {
+    const directoryName = _.kebabCase(this.props.botName);
+    if (path.basename(this.destinationPath()) !== directoryName) {
+      this.log(`Your bot should be in a directory named ${directoryName}\nI'll automatically create this folder.`);
+      mkdirp(directoryName);
+      this.destinationRoot(this.destinationPath(directoryName));
+    }
+    this.fs.copyTpl(this.templatePath('package.json'), this.destinationPath('package.json'), { botName: this.props.botName });
+    this.fs.copy(this.templatePath('.gitignore'), this.destinationPath('.gitignore'));
+    this.fs.copy(this.templatePath('.env'), this.destinationPath('.env'));
+    
+    const extension = this.props.language === 'JavaScript' ? 'js' : 'ts';
+
+    this.fs.copy(this.templatePath(`app.${extension}`), this.destinationPath(`app.${extension}`));
+    this.fs.copyTpl(this.templatePath(`bot.${extension}`), this.destinationPath(`bot.${extension}`), {
+      botName: this.props.botName, description: this.props.description
+    });
+
+    if(extension === 'ts') {
+      this.fs.copy(this.templatePath('tsconfig.json'), this.destinationPath('tsconfig.json'));
+    }
+
+    const launchSteps = extension === 'js' ? `node app.js` : `tsc\nnode app.js`;
+
+    this.fs.copyTpl(this.templatePath('README.md'), this.destinationPath('README.md'), {
+      botName: this.props.botName, description: this.props.description, launchSteps: launchSteps, extension: extension
+    });
+  }
+
+  install() {
+    this.installDependencies({bower: false});
+  }
+}
+
+// module.exports = yeoman.generators.Base.extend({
+//   prompting: function () {
+//     const prompts = [
+//       { name: 'botName', message: `What 's the name of your bot?`, default: 'sample' },
+//       { name: 'description', message: 'What will your bot do?', default: 'sample' },
+//       { name: 'language', type: 'list', message: 'What language do you want to use?', choices: ['TypeScript', 'JavaScript'] },
+//       { name: 'license', type: 'list', message: 'What license do you want to use?', choices: ['MIT', 'Apache'] }
+//     ];
+//     return this.prompt(prompts).then((props) => {
+//       this.props = props;
+//       // console.log(props);
+//     });
+//   },
+
+//   writing: function () {
+//     // this.fs.copy(
+//     //   this.templatePath('dummyfile.txt'),
+//     //   this.destinationPath('dummyfile.txt')
+//     // );
+//     // let directoryName = this.props.botName.replace(' ', '-').match(/a-z-/ig).toLowerCase();
+//     const directoryName = this.props.botName.replace(' ', '-').match(/[a-z-]*/ig)[0].toLowerCase();
+//     this.mkdir(directoryName);
+//   },
+
+//   install: function () {
+//     // this.installDependencies();
+//   }
+// });
