@@ -17,3 +17,7 @@ This bot is designed to do the following:
 ```
 <%= launchSteps %>
 ```
+
+### Configuring the bot
+
+The template uses [dotenv](https://github.com/motdotla/dotenv) for managing application settings.
