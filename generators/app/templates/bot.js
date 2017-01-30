@@ -5,9 +5,7 @@ const connector = new builder.ChatConnector({
     appPassword: process.env.MICROSOFT_APP_PASSWORD
 });
 
-const bot = new builder.UniversalBot(connector);
-
-bot.dialog('/', [
+const bot = new builder.UniversalBot(connector, [
     (session, args, next) => {
         const botName = '<%= botName %>';
         const description = `<%= description %>`;
