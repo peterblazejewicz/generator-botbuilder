@@ -26,8 +26,8 @@ module.exports = class extends Generator {
       this.destinationRoot(this.destinationPath(directoryName));
     }
     this.fs.copyTpl(this.templatePath('package.json'), this.destinationPath('package.json'), { botName: this.props.botName });
-    this.fs.copy(this.templatePath('.gitignore'), this.destinationPath('.gitignore'));
-    this.fs.copy(this.templatePath('.env'), this.destinationPath('.env'));
+    this.fs.copy(this.templatePath('_gitignore'), this.destinationPath('.gitignore'));
+    this.fs.copy(this.templatePath('_env'), this.destinationPath('.env'));
     
     const extension = this.props.language === 'JavaScript' ? 'js' : 'ts';
 
