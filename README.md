@@ -1,6 +1,15 @@
 # generator-botbuilder [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
 > Yeoman generator for Microsoft Bot Framework
 
+## Features
+
+Scaffolds a bot using [Microsoft Bot Framework](https://dev.botframework.com).
+
+### Dependencies
+
+- [dotenv](https://github.com/motdotla/dotenv) for managing environmental variables
+- [restify](http://restify.com/) for hosting the API
+
 ## Installation
 
 First, install [Yeoman](http://yeoman.io) and generator-botbuilder using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
@@ -10,11 +19,16 @@ npm install -g yo
 npm install -g generator-botbuilder
 ```
 
-Then generate your new project:
+## Generating your bot
 
 ```bash
 yo botbuilder
 ```
+
+### Next Steps
+
+- Update .env with your bot App ID and Password (if needed)
+- Add your logic to `bot.js`
 
 ## Getting To Know Yeoman
 
@@ -25,7 +39,7 @@ yo botbuilder
 
 ## License
 
-MIT © [Christopher Harrison](https://github.com/geektrainer)
+MIT © Microsoft
 
 
 [npm-image]: https://badge.fury.io/js/generator-botbuilder.svg
