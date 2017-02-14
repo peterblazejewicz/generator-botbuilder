@@ -25,7 +25,7 @@ module.exports = class extends Generator {
       mkdirp(directoryName);
       this.destinationRoot(this.destinationPath(directoryName));
     }
-    this.fs.copyTpl(this.templatePath('package.json'), this.destinationPath('package.json'), { botName: this.props.botName });
+    this.fs.copyTpl(this.templatePath('package.json'), this.destinationPath('package.json'), { botName: directoryName });
     this.fs.copy(this.templatePath('_gitignore'), this.destinationPath('.gitignore'));
     this.fs.copy(this.templatePath('_env'), this.destinationPath('.env'));
     

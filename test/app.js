@@ -6,13 +6,17 @@ var helpers = require('yeoman-test');
 describe('generator-botbuilder:app', function () {
   before(function () {
     return helpers.run(path.join(__dirname, '../generators/app'))
-      .withPrompts({someAnswer: true})
+      .withPrompts({botName: 'sample', description: 'sample', language: 'JavaScript'})
       .toPromise();
   });
 
   it('creates files', function () {
     assert.file([
-      'dummyfile.txt'
+      '.env',
+      'app.js',
+      'bot.js',
+      'package.json',
+      'README.md',
     ]);
   });
 });
