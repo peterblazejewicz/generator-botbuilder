@@ -2,7 +2,10 @@ import * as builder from 'botbuilder';
 
 export default class extends builder.UniversalBot {
     constructor() {
-        super(new builder.ChatConnector(),
+        super(new builder.ChatConnector({
+                appId: process.env.MICROSOFT_APP_ID,
+                appPassword: process.env.MICROSOFT_APP_PASSWORD
+            }),
             [
                 (session, args, next) => {
                     const botName = 'sample';
