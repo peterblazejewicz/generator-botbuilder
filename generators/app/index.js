@@ -1,7 +1,7 @@
 'use strict';
+
 const path = require('path');
 const Generator = require('yeoman-generator');
-// const askName = require('inquirer-npm-name');
 const _ = require('lodash');
 const extend = require('deep-extend');
 const mkdirp = require('mkdirp');
@@ -13,9 +13,9 @@ module.exports = class extends Generator {
       { name: 'description', message: 'What will your bot do?', default: 'sample' },
       { name: 'language', type: 'list', message: 'What language do you want to use?', choices: ['TypeScript', 'JavaScript'] },
     ];
+
     return this.prompt(prompts).then((props) => {
       this.props = props;
-      // console.log(props);
     });
   }
   writing() {
@@ -25,10 +25,11 @@ module.exports = class extends Generator {
       mkdirp(directoryName);
       this.destinationRoot(this.destinationPath(directoryName));
     }
+
     this.fs.copyTpl(this.templatePath('package.json'), this.destinationPath('package.json'), { botName: directoryName });
     this.fs.copy(this.templatePath('_gitignore'), this.destinationPath('.gitignore'));
     this.fs.copy(this.templatePath('_env'), this.destinationPath('.env'));
-    
+
     const extension = this.props.language === 'JavaScript' ? 'js' : 'ts';
 
     this.fs.copy(this.templatePath(`app.${extension}`), this.destinationPath(`app.${extension}`));
