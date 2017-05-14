@@ -18,6 +18,8 @@ This bot is designed to do the following:
 <%= launchSteps %>
 ```
 
+If you are using [QnA Maker](https://qnamaker.ai), you must update `.env` with your KBID and subscription key.
+
 ### Configuring the bot
 
-The template uses [dotenv](https://github.com/motdotla/dotenv) for managing application settings.
+The template uses [dotenv](https://github.com/motdotla/dotenv) for managing application settings; all keys will be placed in the `.env` file during testing.

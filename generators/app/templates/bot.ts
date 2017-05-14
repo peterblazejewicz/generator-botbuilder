@@ -1,22 +1,9 @@
 import * as builder from 'botbuilder';
+import { <%= defaultDialog %> } from './dialogs';
 
-export default class extends builder.UniversalBot {
-    constructor() {
-        super(new builder.ChatConnector(),
-            [
-                (session, args, next) => {
-                    const botName = 'sample';
-                    const description = `sample`;
+const universalBot = new builder.UniversalBot(
+    new builder.ChatConnector(),
+    <%= defaultDialog %>.dialog
+);
 
-                    session.send(`Hi there! I'm ${botName}`);
-                    session.send(`In a nutshell, here's what I can do:\n\n${description}`);
-
-                    builder.Prompts.text(session, `What's your name?`);
-                },
-                (session, results, next) => {
-                    session.endConversation(`Welcome, ${results.response}`);
-                },
-            ]
-        );
-    }
-}
+export const bot = universalBot;
