@@ -1,9 +1,9 @@
 import * as builder from 'botbuilder';
 import { <%= defaultDialog %> } from './dialogs';
 
-const universalBot = new builder.UniversalBot(
+const bot = new builder.UniversalBot(
     new builder.ChatConnector(),
     <%= defaultDialog %>.dialog
 );
 
-export const bot = universalBot;
+export default bot;
