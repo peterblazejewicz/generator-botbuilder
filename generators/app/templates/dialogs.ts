@@ -26,6 +26,21 @@ export const echoDialog: IDialog = {
     ]
 }
 
+export const luisDialog: IDialog = {
+    id: 'none',
+    name: 'none',
+    dialog: [
+        (session, args, next) => {
+            const entity = builder.EntityRecognizer.findEntity(args.entities, 'entity');
+            if(entity) next({ response: entity.entity });
+            else builder.Prompts.text(session, 'Please provide entityName');
+        },
+        (session, results, next) => {
+            session.endConversation(`You said ${results.response}`);
+        }
+    ]
+}
+
 interface IQnAAnswer {
     answer: string;
     score: number;

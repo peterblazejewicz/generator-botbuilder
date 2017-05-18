@@ -12,7 +12,7 @@ module.exports = class extends Generator {
       { name: 'botName', message: `What 's the name of your bot?`, default: 'sample' },
       { name: 'description', message: 'What will your bot do?', default: 'sample' },
       { name: 'language', type: 'list', message: 'What language do you want to use?', choices: ['TypeScript', 'JavaScript'] },
-      { name: 'dialog', type: 'list', message: 'What default dialog do you want?', choices: ['QnA Maker', 'Echo'] },
+      { name: 'dialog', type: 'list', message: 'What default dialog do you want?', choices: ['QnA Maker', 'LUIS', 'Echo'] },
     ];
 
     return this.prompt(prompts).then((props) => {
@@ -24,6 +24,7 @@ module.exports = class extends Generator {
     const extension = this.props.language === 'JavaScript' ? 'js' : 'ts';
     const launchSteps = extension === 'js' ? `node app.js` : `tsc\nnode app.js`;
     const defaultDialog = this.props.dialog.split(' ')[0].toLowerCase() + `Dialog`;
+    const luisRegistration = (defaultDialog === 'luisDialog') ? '\nbot.recognizer(new builder.LuisRecognizer(process.env.LUIS_MODEL_URL));\n' : '\n';
 
     if (path.basename(this.destinationPath()) !== directoryName) {
       this.log(`Your bot should be in a directory named ${directoryName}\nI'll automatically create this folder.`);
@@ -38,7 +39,7 @@ module.exports = class extends Generator {
 
     this.fs.copy(this.templatePath(`app.${extension}`), this.destinationPath(`app.${extension}`));
     this.fs.copyTpl(this.templatePath(`bot.${extension}`), this.destinationPath(`bot.${extension}`), {
-      defaultDialog: defaultDialog
+      defaultDialog, luisRegistration
     });
     this.fs.copyTpl(this.templatePath(`dialogs.${extension}`), this.destinationPath(`dialogs.${extension}`), {
       botName: this.props.botName, botDescription: this.props.description

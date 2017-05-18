@@ -21,6 +21,23 @@ exports.echoDialog = {
     ]
 };
 
+exports.luisDialog = {
+    id: 'luis',
+    name: 'luis',
+    dialog: [
+        (session, args, next) => {
+            const entity = builder.EntityRecognizer.findEntity(args.entities, 'entity');
+            if (entity)
+                next({ response: entity.entity });
+            else
+                builder.Prompts.text(session, 'Please provide entityName');
+        },
+        (session, results, next) => {
+            session.endConversation(`You said ${results.response}`);
+        }
+    ]
+};
+
 exports.qnaDialog = {
     id: 'qna',
     name: 'qna',

@@ -2,9 +2,9 @@
 
 const builder = require("botbuilder");
 const dialogs = require("./dialogs");
-const universalBot = new builder.UniversalBot(
+const bot = new builder.UniversalBot(
     new builder.ChatConnector(), 
     dialogs.<%= defaultDialog %>.dialog
 );
-
-module.exports = universalBot;
+<%= luisRegistration %>
+module.exports = bot;
