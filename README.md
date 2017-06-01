@@ -27,8 +27,8 @@ yo botbuilder
 
 ### Next Steps
 
-- Update `.env` with your bot App ID and Password (if needed)
-- Add your logic to `bot.js`
+- Update `.env` with your keys as needed
+- Add your logic to `dialogs.js`
 
 ## Getting To Know Yeoman
 

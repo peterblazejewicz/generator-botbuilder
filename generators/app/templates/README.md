@@ -8,9 +8,29 @@ This bot is designed to do the following:
 
 ## Getting Started
 
+### Dependencies
+
+- **[Restify](http://restify.com)** Used to host the web service for the bot, and for making REST calls
+- **[dotenv](https://github.com/motdotla/dotenv)** Used to manage environmental variables
+
 ### Structure
 
-`app.<%= extension %>` references the bot and starts a [Restify](http://restify.com/) server. `bot.<%= extension %>` has a simple multi-turn dialog which sends the name and description of the bot, and then asks the user for their name.
+`app.<%= extension %>` references the bot and starts a Restify server. `bot.<%= extension %>` loads the dialog type you selected when running the generator and adds it as the default dialog. `dialogs.<%= extension %>` contains the list of sample dialogs.
+
+### Configuring the bot
+
+Update `.env` with the appropriate keys:
+
+- KBID and SUBSCRIPTION_KEY for QnA Maker
+- LUIS_MODEL_URL for LUIS
+- App ID and Key for registered bots.
+
+In the case of LUIS, you will need to update the dialog in `dialogs.<%= extension %>` to work with the appropriate intent and entities.
+
+### The dialogs
+
+- Echo dialog is designed for simple Hello, World demos and to get you started.
+- LUIS dialog has the basic code to retrieve an entity
 
 ### Running the bot
 
@@ -18,6 +38,9 @@ This bot is designed to do the following:
 <%= launchSteps %>
 ```
 
-### Configuring the bot
+## Additional Resources
 
-The template uses [dotenv](https://github.com/motdotla/dotenv) for managing application settings.
+- [Microsoft Virtual Academy Bots Course](http://aka.ms/botcourse)
+- [Bot Framework Documentation](https://docs.botframework.com)
+- [LUIS](https://luis.ai)
+- [QnA Maker](https://qnamaker.ai)
