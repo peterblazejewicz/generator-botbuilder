@@ -3,7 +3,7 @@
 
 ## Features
 
-Scaffolds a bot using [Microsoft Bot Framework](https://dev.botframework.com).
+Scaffolds a bot using [Microsoft Bot Framework](https://dev.botframework.com), and provides a set of dialogs to jump start bot development.
 
 ### Dependencies
 
@@ -28,7 +28,13 @@ yo botbuilder
 ### Next Steps
 
 - Update `.env` with your keys as needed
-- Add your logic to `dialogs.js`
+- Add your logic
+
+## Getting To Know Bot Framework
+
+- [Bot Framework](https://dev.botframework.com/)
+- [Bot Framework Documentation](https://docs.botframework.com/)
+- [Microsoft Virtual Academy](http://aka.ms/botcourse)
 
 ## Getting To Know Yeoman
 

@@ -1,47 +1,23 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+/* ----------------------------------------------------------------------------------
+*   QnA Dialog
+*   Sample dialog for use with QnA Maker 
+*   You can find out more information about QnA Maker at https://qnamaker.ai
+*       or at https://channel9.msdn.com/Events/Build/2017/p4074
+*
+*   To use:
+*   1. Create a knowledge base at https://qnamaker.ai
+*   2. Set the KBID and SUBSCRIPTION_KEY environmental variables
+*       This can be done by updating .env, or setting the variables manually
+*   3. No additional code updates are required
+---------------------------------------------------------------------------------- */
 
-const restify = require("restify");
-const builder = require("botbuilder");
+const builder = require('botbuilder');
+const restify = require('restify');
 
-exports.echoDialog = {
-    id: 'echo',
-    name: 'echo',
-    dialog: [
-        (session, args, next) => {
-            const botName = '<%= botName %>';
-            const description = `<%= botDescription %>`;
-            session.send(`Hi there! I'm ${botName}`);
-            session.send(`In a nutshell, here's what I can do:\n\n${description}`);
-            builder.Prompts.text(session, `What's your name?`);
-        },
-        (session, results, next) => {
-            session.endConversation(`Welcome, ${results.response}`);
-        },
-    ]
-};
-
-exports.luisDialog = {
-    id: 'luis',
-    name: 'luis',
-    dialog: [
-        (session, args, next) => {
-            const entity = builder.EntityRecognizer.findEntity(args.entities, 'entity');
-            if (entity)
-                next({ response: entity.entity });
-            else
-                builder.Prompts.text(session, 'Please provide entityName');
-        },
-        (session, results, next) => {
-            session.endConversation(`You said ${results.response}`);
-        }
-    ]
-};
-
-exports.qnaDialog = {
+module.exports = {
     id: 'qna',
     name: 'qna',
-    dialog: [
+    waterfall: [
         (session, args, next) => {
             const question = session.message.text;
             if (!question) {
