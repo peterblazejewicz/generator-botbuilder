@@ -1,6 +1,6 @@
 {
   "name": "generator-botbuilder",
-  "version": "0.7.7",
+  "version": "0.8.0",
   "description": "A yeoman generator for creating bots using Microsoft Bot Framework",
   "homepage": "https://github.com/MicrosoftDX/generator-botbuilder",
   "author": {
