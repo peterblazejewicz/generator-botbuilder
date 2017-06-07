@@ -13,7 +13,7 @@
 import { IDialog } from './idialog';
 import * as builder from 'botbuilder';
 
-export const luisDialog: IDialog = {
+const dialog: IDialog = {
     id: 'none',
     name: 'none',
     waterfall: [
@@ -27,3 +27,5 @@ export const luisDialog: IDialog = {
         }
     ]
 }
+
+export default dialog;
