@@ -11,7 +11,7 @@ This bot is designed to do the following:
 The goal of the BotBuilder Yeoman generator is to both scaffold out a bot according to general best practices, and to provide some templates you can use when implementing commonly requested features and dialogs in your bot. As a result, you will notice that all dialogs are located in a folder called `dialogs`, and the one you chose when running the wizard becomes the default (or root) dialog. You are free to use the additional dialogs provided (or delete them) as you see fit.
 
 One thing to note is it's not possible to completely generate a bot or dialog, as the questions you need to ask of your user will vary wildly depending on your scenario. As such, we hope we've given you a good starting point for building your bots with Bot Framework.
-
+<% if (dialog) { %>
 ### Dialogs
 
 This generator provides the following dialogs:
@@ -33,7 +33,7 @@ bot.dialog(dialog.id, dialog.waterfall).triggerAction({ matches: dialog.name });
 ```
 
 By using this structure, it would be possible to dynamically load all of the dialogs in the `dialogs` folder, and then add them to the bot.
-
+<% } %>
 ## Getting Started
 
 ### Dependencies
@@ -43,7 +43,7 @@ By using this structure, it would be possible to dynamically load all of the dia
 
 ### Structure
 
-`app.<%= extension %>` references the bot and starts a Restify server. `bot.<%= extension %>` loads the dialog type you selected when running the generator and adds it as the default dialog. `dialogs.<%= extension %>` contains the list of sample dialogs.
+`app.<%= extension %>` references the bot and starts a Restify server. <% if (dialog) { %> `bot.<%= extension %>` loads the dialog type you selected when running the generator and adds it as the default dialog. `dialogs.<%= extension %>` contains the list of sample dialogs.<% } %>
 
 ### Configuring the bot
 
@@ -63,7 +63,7 @@ In the case of LUIS, you will need to update the dialog in `dialogs.<%= extensio
 ### Running the bot
 
 ```
-<%= launchSteps %>
+<%- launchSteps %>
 ```
 
 ## Additional Resources

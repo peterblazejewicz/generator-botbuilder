@@ -10,21 +10,22 @@
 *   3. Update the code below to prompt the user for missing entities
 ------------------------------------------------------------------------------------------ */
 
-const builder = require('botbuilder');
+import {IDialog} from './idialog';
+import * as builder from 'botbuilder';
 
-module.exports = {
-    id: 'luis',
-    name: 'luis',
-    waterfall: [
-        (session, args, next) => {
-            const entity = builder.EntityRecognizer.findEntity(args.entities, 'entity');
-            if (entity)
-                next({ response: entity.entity });
-            else
-                builder.Prompts.text(session, 'Please provide entityName');
-        },
-        (session, results, next) => {
-            session.endConversation(`You said ${results.response}`);
-        }
-    ]
-};
+const dialog: IDialog = {
+  id: 'none',
+  name: 'none',
+  waterfall: [
+    (session, args, next) => {
+      const entity = builder.EntityRecognizer.findEntity(args.entities, 'entity');
+      if (entity) next({response: entity.entity});
+      else builder.Prompts.text(session, 'Please provide entityName');
+    },
+    (session, results, next) => {
+      session.endConversation(`You said ${results.response}`);
+    }
+  ]
+}
+
+export default dialog;

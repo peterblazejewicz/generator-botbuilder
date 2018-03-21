@@ -7,14 +7,14 @@
 ---------------------------------------------------------------- */
 
 import * as builder from 'botbuilder';
-import dialog from './dialogs/<%= defaultDialog %>';
+import dialog from './dialogs/<%= dialog %>';
 
 const bot = new builder.UniversalBot(
-    new builder.ChatConnector({
-        appId: process.env.MICROSOFT_APP_ID,
-        appPassword: process.env.MICROSOFT_APP_PASSWORD
-    }),
-    dialog.waterfall
+  new builder.ChatConnector({
+    appId: process.env.MICROSOFT_APP_ID,
+    appPassword: process.env.MICROSOFT_APP_PASSWORD
+  }),
+  dialog.waterfall
 );
-<%= luisRegistration %>
+< %= luisRegistration % >
 export default bot;
