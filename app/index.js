@@ -96,7 +96,7 @@ module.exports = class extends Generator {
     const launchSteps = extension === 'js' ? 'node app.js' : 'tsc && node app.js';
     const botBuilderVersion = version === 'v3' ? '3.14.0' : '^4.0.0-m2.1';
     const main = language === 'TypeScript' ? 'lib/app.js' : 'app.js';
-    const build = language === 'TypeScript' ? 'tsc' : 'echo "no build is required"';
+    const build = language === 'TypeScript' ? 'tsc' : 'echo no build is required';
     const luisRegistration = answers.dialog === 'LUIS' ? '\nbot.recognizer(new builder.LuisRecognizer(process.env.LUIS_MODEL_URL));\n' : '\n';
 
     return Object.assign({
@@ -120,10 +120,10 @@ module.exports = class extends Generator {
       fse.ensureDirSync(directoryName);
       this.destinationRoot(this.destinationPath(directoryName));
     }
-    const app = `v3/app.${extension}`;
-    const bot = `v3/bot.${extension}`;
-    this.fs.copy(this.templatePath(app), this.destinationPath(app));
-    this.fs.copyTpl(this.templatePath(bot), this.destinationPath(bot), templateOptions);
+    const app = `app.${extension}`;
+    const bot = `bot.${extension}`;
+    this.fs.copy(this.templatePath(path.join('v3', app)), this.destinationPath(app));
+    this.fs.copyTpl(this.templatePath(path.join('v3', bot)), this.destinationPath(bot), templateOptions);
     this.fs.copyTpl(this.templatePath(`v3/dialogs-${extension}`), this.destinationPath('dialogs'), templateOptions);
   }
 
